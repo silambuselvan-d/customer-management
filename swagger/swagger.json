@@ -1,0 +1,484 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Customer-Management",
+    "description": "**REST API DOCUMENTATION**\n\nYou can try all REST operation using EXECUTE button \n",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:9090",
+  "basePath": "/api/customer",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Login user",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Login user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User Login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/getCustomers": {
+      "get": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Fetch the list of all the active customers",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/getCustomersForCountry": {
+      "get": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Fetch the list of customers for a particular country code",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "country",
+            "description": "Country ISO code",
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/getPremiumCustomers": {
+      "get": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Fetch the list of premium customers",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/getCustomersForSMS": {
+      "get": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Fetch the list of customers who are subscribed for sms alert",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/getCustomersCount": {
+      "get": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Fetch only the count of all the active customers",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/addCustomer": {
+      "post": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Add list of customers in the input.json format. Generate Customer ID and share it as response",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "New Customer",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Add Customer"
+            }
+          },
+          {
+            "in": "header",
+            "name": "token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/updateCustomer": {
+      "put": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Update data of one customer at a time, based on customer ID",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Update Customer",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Update Customer"
+            }
+          },
+          {
+            "in": "header",
+            "name": "token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/deleteCustomer": {
+      "delete": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Soft delete a customer from the storage",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Delete Customer",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Delete Customer"
+            }
+          },
+          {
+            "in": "header",
+            "name": "token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/deleteCustomers": {
+      "delete": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Soft delete list of customers from the storage",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Delete Customer",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Delete Customer List"
+            }
+          },
+          {
+            "in": "header",
+            "name": "token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User Login": {
+      "type": "object",
+      "required": [
+        "loginId",
+        "password"
+      ],
+      "properties": {
+        "loginId": {
+          "type": "string",
+          "example": "superuser"
+        },
+        "password": {
+          "type": "string",
+          "example": "password"
+        }
+      }
+    },
+    "Add Customer": {
+      "type": "object",
+      "required": [
+        "name",
+        "country",
+        "mobile",
+        "email",
+        "notification"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Silambu Selvan"
+        },
+        "country": {
+          "type": "string",
+          "example": "IN"
+        },
+        "mobile": {
+          "type": "number",
+          "example": "9940862087"
+        },
+        "email": {
+          "type": "string",
+          "example": "silambuselvan.d@gmail.com"
+        },
+        "notification": {
+          "type": "array",
+          "example": [
+            "sms",
+            "email",
+            "call"
+          ]
+        },
+        "premium": {
+          "type": "boolean",
+          "example": "true"
+        }
+      }
+    },
+    "Update Customer": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "8747cac4-81d9-404c-95e1-61c712587bd0"
+        },
+        "name": {
+          "type": "string",
+          "example": "Silambu Selvan"
+        },
+        "country": {
+          "type": "string",
+          "example": "IN"
+        },
+        "mobile": {
+          "type": "number",
+          "example": "9940862087"
+        },
+        "email": {
+          "type": "string",
+          "example": "silambuselvan.d@gmail.com"
+        },
+        "notification": {
+          "type": "array",
+          "example": [
+            "sms",
+            "email",
+            "call"
+          ]
+        },
+        "premium": {
+          "type": "boolean",
+          "example": "true"
+        }
+      }
+    },
+    "Delete Customer": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "8747cac4-81d9-404c-95e1-61c712587bd0"
+        }
+      }
+    },
+    "Delete Customer List": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "array",
+          "example": [
+            "8747cac4-81d9-404c-95e1-61c712587bd0",
+            "e5e1e4b8-fed7-4411-8450-f6a83cc15509"
+          ]
+        }
+      }
+    }
+  }
+}
